@@ -1,12 +1,7 @@
 // Import the required modules
 import ballerina/io;
 
-type PandemicRecord record {
-    string townName;
-    string regionName;
-    int newCases;
-    int newRecoveries;
-};
+
 
 // A list of pandemic records for different towns and regions in Namibia
 table<PandemicRecord> pandemicData = table [
