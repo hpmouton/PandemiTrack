@@ -13,6 +13,17 @@ object PandemicDataAnalysis {
 
     val pandemicDF = spark.readStream.format("kafka").option("kafka.bootstrap.servers", "localhost:9092") // Kafka broker.option("subscribe", "cases-topic").load().selectExpr("CAST(value AS STRING) as json").select(from_json($"json", pandemicRecordSchema).as("data")).select("data.*")
 
+     val pandemicDF = spark
+      .readStream
+      .format("kafka")
+      .option("kafka.bootstrap.servers", "localhost:9092") // Kafka broker
+      .option("subscribe", "cases-topic") // Kafka topic
+      .load()
+      .selectExpr("CAST(value AS STRING) as json")  // Extract the message value as a JSON string
+      .select(from_json($"json", pandemicRecordSchema).as("data"))  // Parse the JSON into a structured DataFrame
+      .select("data.*")  // Extract the fields from the parsed JSON
+
+
     val casesPerTownRegion = pandemicDF.groupBy("regionName", "townName").agg(sum("newCases").as("totalCases"), sum("newRecoveries").as("totalRecoveries"))
 
     val newCaseTrend = pandemicDF.withColumn("timestamp", current_timestamp()) // Adding a timestamp column.groupBy(window($"timestamp", "1 hour"), $"regionName", $"townName").agg(sum("newCases").as("newCasesInLastHour"))

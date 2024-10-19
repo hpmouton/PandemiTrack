@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function LandingPage() {
     const [modalOpen, setModalOpen] = useState(false);
@@ -132,17 +133,17 @@ function LandingPage() {
 
             <div className="sticky top-0 z-10 bg-white">
                 <nav className="container mx-auto p-6 flex justify-between items-center py-3">
-                    <div className="text-2xl font-medium bg-gradient-to-br from-slate-900 to-fuchsia-600 bg-clip-text text-transparent">PandemiTracker.</div>
+                    <Link to="/" className="text-2xl font-medium bg-gradient-to-br from-slate-900 to-fuchsia-600 bg-clip-text text-transparent">PandemiTracker.</Link>
+
                     <div className='flex justify-content-end'>
                     <section className="bg-transparent text-slate-800">
-                <div className="container mx-auto text-center">
-                    <h2 className="text-sm  font-light">Track Pandemic Cases in Real-Time</h2>
-
-                    <button className="mt-4 bg-fuchsia-900 font-xs text-white px-3 py-2 rounded hover:bg-fuchsia-800 transition ease-in-out delay-100"
+                <div className="container mx-auto text-center bg-gray-200 rounded-3xl shadow-md p-4 border">
+                    <Link to="/analytics"  className="text-sm font-medium mr-2 p-3 hover:bg-gray-100 rounded-xl ">Analytics</Link>
+                    <button className=" bg-slate-800 font-xs text-white px-3 py-2 rounded-xl hover:bg-slate-700 transition ease-in-out delay-100"
                         onClick={startSimulation} disabled={simulationRunning}>
                         {simulationRunning ? 'Simulation Running...' : 'Start Data Simulation'}
                     </button>
-                    <button className="mt-4 bg-red-600 font-xs text-white mx-3 px-2 py-2 rounded hover:bg-red-500"
+                    <button className="bg-red-600 font-xs text-white ml-2 px-2 py-2 rounded-xl hover:bg-red-500"
                         onClick={stopSimulation} disabled={!simulationRunning}>
                         Stop Simulation
                     </button>
@@ -161,7 +162,7 @@ function LandingPage() {
                 <section className="bg-transparent p-3 pb-12 text-slate-800">
                 <div className="container mx-auto text-center">
                     <h2 className="text-3xl font-light">Track Pandemic Cases in Real-Time</h2>
-                    <button className="mt-4 bg-fuchsia-900 text-white px-6 py-2 rounded"
+                    <button className="mt-4 bg-fuchsia-900 text-white px-6 py-2 rounded-xl hover:fuchsia-800"
                         onClick={() => setModalOpen(true)}>Report Data</button>
                 </div>
             </section>
@@ -176,10 +177,10 @@ function LandingPage() {
 
                         {/* Patient Fields */}
                         <label className="block text-left">Patient Name</label>
-                        <input type="text" className="border px-4 py-2 rounded w-full mt-2" value={patientId} onChange={(e) => setPatientId(e.target.value)} placeholder="Enter Patient ID" />
+                        <input type="text" className="border px-4 py-2 rounded-xl w-full mt-2" value={patientId} onChange={(e) => setPatientId(e.target.value)} placeholder="Enter Patient ID" />
 
                         <label className="block text-left mt-4">Patient Age</label>
-                        <input type="number" className="border px-4 py-2 rounded w-full mt-2" value={patientAge} onChange={(e) => setPatientAge(e.target.value)} placeholder="Enter Patient Age" />
+                        <input type="number" className="border px-4 py-2 rounded-xl w-full mt-2" value={patientAge} onChange={(e) => setPatientAge(e.target.value)} placeholder="Enter Patient Age" />
 
                         {/* Gender Radio Buttons */}
                         <label className="block text-left mt-4">Gender</label>
@@ -193,7 +194,7 @@ function LandingPage() {
 
                         {/* Region and Town Fields */}
                         <label className="block text-left mt-4">Select Region</label>
-                        <select className="border px-4 py-2 rounded w-full mt-2" value={selectedRegion} onChange={handleRegionChange}>
+                        <select className="border px-4 py-2 rounded-xl w-full mt-2" value={selectedRegion} onChange={handleRegionChange}>
                             <option value="">-- Select Region --</option>
                             {Object.keys(regions).map((region) => (
                                 <option key={region} value={region}>{region}</option>
@@ -203,7 +204,7 @@ function LandingPage() {
                         {selectedRegion && (
                             <>
                                 <label className="block text-left mt-4">Select Town</label>
-                                <select className="border px-4 py-2 rounded w-full mt-2" value={selectedTown} onChange={handleTownChange}>
+                                <select className="border px-4 py-2 rounded-xl w-full mt-2" value={selectedTown} onChange={handleTownChange}>
                                     <option value="">-- Select Town --</option>
                                     {regions[selectedRegion].map((town) => (
                                         <option key={town} value={town}>{town}</option>
@@ -222,7 +223,7 @@ function LandingPage() {
                             <label htmlFor="recovery" className="ml-2">Recovery</label>
                         </div>
 
-                        <button className="mt-4 bg-fuchsia-900 text-white px-6 py-2 rounded w-full" onClick={reportData}>Submit</button>
+                        <button className="mt-4 bg-fuchsia-900 text-white px-6 py-2 rounded-xl w-full" onClick={reportData}>Submit</button>
                         <button className="mt-2 text-gray-600 underline" onClick={() => setModalOpen(false)}>Cancel</button>
                     </div>
                 </div>
