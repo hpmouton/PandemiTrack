@@ -1,12 +1,17 @@
 import ballerinax/kafka;
 import ballerina/http;
 import ballerina/io;
+
 type PandemicRecord record {
     string townName;
-    int newCases;
-    int newRecoveries;
     string regionName;
+    string patientId;
+    int age;
+    string gender;
+    int newCases;      // Either newCases will be 1 or 0
+    int newRecoveries; // Either newRecoveries will be 1 or 0
 };
+
 @http:ServiceConfig {
     cors: {
         allowOrigins: ["http://localhost:3000"],
